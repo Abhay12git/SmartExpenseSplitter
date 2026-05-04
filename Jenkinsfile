@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh '''
                     mkdir -p target
-                    printf "help\nlist-users\nlist-groups\nexit\n" | java -jar target/expense-splitter.jar | tee target/app-output.log
+                    printf "help\nlist-users\nlist-groups\nlist-expenses g1\nshow-balances g1\nshow-balance-between a1b2 c3d4\nsettle g1\nanalytics-paid\nanalytics-owed\nlargest-debtor\nlargest-creditor\nexit\n" | java -jar target/expense-splitter.jar | tee target/app-output.log
                 '''
             }
         }
