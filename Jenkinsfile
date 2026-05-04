@@ -65,6 +65,7 @@ exit''',
             steps {
                 script {
                     sh 'mkdir -p target'
+                    echo "Running demo mode: ${params.DEMO_MODE}"
                     String commands
                     switch (params.DEMO_MODE) {
                         case 'BASIC':
