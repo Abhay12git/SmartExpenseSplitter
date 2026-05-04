@@ -37,6 +37,7 @@
     </dependencies>
 
     <build>
+        <finalName>expense-splitter</finalName>
         <sourceDirectory>src</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
         <plugins>
@@ -74,7 +75,6 @@
                             <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
-                    <finalName>expense-splitter</finalName>
                 </configuration>
             </plugin>
 
