@@ -1,3 +1,0 @@
-[
-  {"id":"e1","description":"Dinner","totalAmount":300.00,"paidById":"a1b2","groupId":"g1","splitType":"EQUAL","date":"2025-04-01","splits":[{"userId":"a1b2","amount":150.00,"percentage":0.00},{"userId":"c3d4","amount":150.00,"percentage":0.00}]}
-]

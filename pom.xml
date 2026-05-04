@@ -6,51 +6,49 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- ── Project Identity ───────────────────── -->
     <groupId>com.expensesplitter</groupId>
     <artifactId>smart-expense-splitter</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Smart Expense Splitter</name>
-    <description>
-        CLI-based expense splitting system with debt optimization
-        and spending analytics.
-    </description>
+    <description>CLI-based expense splitting system with debt optimization and spending analytics.</description>
+    <url>https://github.com/&lt;your-username&gt;/SmartExpenseSplitter</url>
 
-    <!-- ── Java Version ───────────────────────── -->
+    <scm>
+        <connection>scm:git:https://github.com/&lt;your-username&gt;/SmartExpenseSplitter.git</connection>
+        <developerConnection>scm:git:https://github.com/&lt;your-username&gt;/SmartExpenseSplitter.git</developerConnection>
+        <url>https://github.com/&lt;your-username&gt;/SmartExpenseSplitter</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <!-- ── No external dependencies (by design) ─ -->
     <dependencies>
-        <!-- 
-            Zero runtime dependencies — pure Java stdlib only.
-            This is intentional: no Gson, no Jackson, no Spring.
-        -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
         <plugins>
-
-            <!-- ── 1. Compiler Plugin ─────────────────── -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
-                    <!-- Enables records, text blocks, switch expressions -->
-                    <compilerArgs>
-                        <arg>--enable-preview</arg>
-                    </compilerArgs>
+                    <release>17</release>
                 </configuration>
             </plugin>
 
-            <!-- ── 2. Exec Plugin (mvn exec:java) ─────── -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -60,32 +58,24 @@
                 </configuration>
             </plugin>
 
-            <!-- ── 3. Fat JAR (single runnable jar) ───── -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.6.0</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
                 <configuration>
                     <archive>
                         <manifest>
                             <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
                     <finalName>expense-splitter</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>assemble-all</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
         </plugins>

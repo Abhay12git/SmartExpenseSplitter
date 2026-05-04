@@ -8,7 +8,8 @@ Getting started
 
 Prerequisites
 - Java 17 (JDK) installed. The project uses Java 17 source level.
-- Maven (optional) if you prefer `mvn` workflows. The repository includes a PowerShell launcher `run.ps1` that compiles and runs the flat `src/` layout.
+- Maven 3.8+ installed if you want to use the Maven workflow or Jenkins pipeline.
+- Jenkins on Ubuntu should have JDK 17 and Maven configured in Global Tool Configuration.
 
 Run the app (preferred — single command)
 ```powershell
@@ -21,14 +22,26 @@ Set-Location E:\SmartExpenseSplitter
 .\run.ps1 -Commands @('help','list-users','exit')
 ```
 
-Run with Maven (alternative)
+Run with Maven
 ```powershell
-#mvn must be available on PATH
-mvn clean compile exec:java -Dexec.jvmArgs="--enable-preview"
-# or build jar then run
+mvn clean test
 mvn clean package
-java --enable-preview -jar target/expense-splitter.jar
+mvn exec:java -Dexec.mainClass="Main"
+java -jar target/expense-splitter.jar
 ```
+
+How to make this repository a Maven project
+1. Install Java 17 and Maven on your machine or Ubuntu build agent.
+2. Keep the current Java sources under `src/`; the POM is configured to treat that folder as the Maven source root.
+3. Use `pom.xml` as the build definition and run `mvn clean test` or `mvn clean package` from the repository root.
+4. Use the provided `Jenkinsfile` for a pipeline build from Ubuntu.
+
+Jenkins on Ubuntu
+1. Install Jenkins, then install the recommended plugins for Pipeline, Git, and JUnit.
+2. Configure tool names in Jenkins Global Tool Configuration to match the pipeline: `Maven3` and `JDK17`.
+3. Create a new Pipeline job and select Pipeline script from SCM or point it at this repository.
+4. Let Jenkins read the root `Jenkinsfile` and run `Checkout`, `Build`, `Test`, and `Package`.
+5. Archive the JAR from `target/` and publish test results from `target/surefire-reports/`.
 
 About `.vscode` and `.github`
 - `.vscode/` stores editor settings, launch configurations and workspace recommendations. Keep it if you want reproduceable editor behaviour across machines; otherwise you can remove it locally or add it to `.gitignore`.
