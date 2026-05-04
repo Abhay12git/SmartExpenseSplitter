@@ -1,0 +1,11 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": "C:\\Users\\Asus\\.jdk\\jdk-17.0.18",
+      "default": true
+    }
+  ],
+  "java.jdt.ls.java.home": "C:\\Users\\Asus\\.jdk\\jdk-17.0.18",
+  "maven.terminal.useJavaHome": true
+}
