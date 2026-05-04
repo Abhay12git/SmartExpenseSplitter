@@ -1,6 +1,30 @@
 pipeline {
     agent any
 
+    parameters {
+        choice(
+            name: 'DEMO_MODE',
+            choices: ['BASIC', 'ANALYTICS', 'FULL', 'CUSTOM'],
+            description: 'Choose which demo input set to execute.'
+        )
+        text(
+            name: 'APP_COMMANDS',
+            defaultValue: '''help
+list-users
+list-groups
+list-expenses g1
+show-balances g1
+show-balance-between a1b2 c3d4
+settle g1
+analytics-paid
+analytics-owed
+largest-debtor
+largest-creditor
+exit''',
+            description: 'Used only when DEMO_MODE = CUSTOM (one command per line).'
+        )
+    }
+
     environment {
         // Replace with your GitHub repository URL
         REPO_URL = 'https://github.com/Abhay12git/SmartExpenseSplitter.git'
@@ -39,10 +63,54 @@ pipeline {
 
         stage('Run App Demo') {
             steps {
-                sh '''
-                    mkdir -p target
-                    printf "help\nlist-users\nlist-groups\nlist-expenses g1\nshow-balances g1\nshow-balance-between a1b2 c3d4\nsettle g1\nanalytics-paid\nanalytics-owed\nlargest-debtor\nlargest-creditor\nexit\n" | java -jar target/expense-splitter.jar | tee target/app-output.log
-                '''
+                script {
+                    sh 'mkdir -p target'
+                    String commands
+                    switch (params.DEMO_MODE) {
+                        case 'BASIC':
+                            commands = '''help
+list-users
+list-groups
+list-expenses g1
+show-balances g1
+exit'''
+                            break
+                        case 'ANALYTICS':
+                            commands = '''help
+list-expenses g1
+show-balances g1
+show-balance-between a1b2 c3d4
+settle g1
+analytics-paid
+analytics-owed
+largest-debtor
+largest-creditor
+exit'''
+                            break
+                        case 'FULL':
+                            commands = '''help
+list-users
+list-groups
+list-expenses g1
+show-balances g1
+show-balance-between a1b2 c3d4
+settle g1
+analytics-paid
+analytics-owed
+largest-debtor
+largest-creditor
+exit'''
+                            break
+                        default:
+                            commands = params.APP_COMMANDS
+                            break
+                    }
+
+                    writeFile file: 'target/commands.txt', text: commands + '\n'
+                    sh '''
+                        java -jar target/expense-splitter.jar < target/commands.txt | tee target/app-output.log
+                    '''
+                }
             }
         }
     }
