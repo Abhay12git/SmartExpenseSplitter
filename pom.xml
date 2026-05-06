@@ -47,10 +47,6 @@
                 <version>3.11.0</version>
                 <configuration>
                     <release>17</release>
-                    <!-- Keep test sources out of the main compile phase when using a custom sourceDirectory. -->
-                    <excludes>
-                        <exclude>test/**</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
 
