@@ -199,13 +199,13 @@ public class CommandHandler {
             groupId, desc, amount, paidBy, splitType, participants, inputs);
 
         System.out.printf(
-            "✓ Expense added: '%s' ₹%.2f paid by %s (id: %s)%n",
+            "✓ Expense added: '%s' %.2f rupees paid by %s (id: %s)%n",
             expense.getDescription(), expense.getTotalAmount(),
             paidBy.getName(), expense.getId());
 
         System.out.println("  Splits:");
         expense.getSplits().forEach(s ->
-            System.out.printf("    %-15s → ₹%.2f%n",
+            System.out.printf("    %-15s - %.2f rupees%n",
                 s.getUser().getName(), s.getAmount()));
     }
 
@@ -218,7 +218,7 @@ public class CommandHandler {
         }
         System.out.println("\n── Expenses ────────────────────────────");
         expenses.forEach(e -> System.out.printf(
-            "  [%s]  %-20s ₹%8.2f  paid by %-12s  %s%n",
+            "  [%s]  %-20s %.2f rupees  paid by %-12s  %s%n",
             e.getId(), e.getDescription(), e.getTotalAmount(),
             e.getPaidBy().getName(), e.getDate()));
         System.out.println("────────────────────────────────────────");
@@ -240,8 +240,8 @@ public class CommandHandler {
         System.out.println("\n── Net Balances ────────────────────────");
         balances.forEach((user, balance) -> {
             String status = balance > 0
-                ? String.format("is owed  ₹%.2f", balance)
-                : String.format("owes     ₹%.2f", Math.abs(balance));
+                ? String.format("is owed  %.2f rupees", balance)
+                : String.format("owes     %.2f rupees", Math.abs(balance));
             System.out.printf("  %-15s  %s%n", user.getName(), status);
         });
         System.out.println("────────────────────────────────────────");
@@ -257,10 +257,10 @@ public class CommandHandler {
             System.out.printf("✓ %s and %s are settled.%n",
                 userA.getName(), userB.getName());
         } else if (balance > 0) {
-            System.out.printf("  %s is owed ₹%.2f by %s%n",
+            System.out.printf("  %s is owed %.2f rupees by %s%n",
                 userA.getName(), balance, userB.getName());
         } else {
-            System.out.printf("  %s owes ₹%.2f to %s%n",
+            System.out.printf("  %s owes %.2f rupees to %s%n",
                 userA.getName(), Math.abs(balance), userB.getName());
         }
     }
@@ -289,7 +289,7 @@ public class CommandHandler {
         Map<User, Double> data = analyticsService.totalPaidPerUser();
         System.out.println("\n── Total Paid Per User ─────────────────");
         data.forEach((u, v) ->
-            System.out.printf("  %-15s  ₹%.2f%n", u.getName(), v));
+            System.out.printf("  %-15s  %.2f rupees%n", u.getName(), v));
         System.out.println("────────────────────────────────────────");
     }
 
@@ -297,7 +297,7 @@ public class CommandHandler {
         Map<User, Double> data = analyticsService.totalOwedPerUser();
         System.out.println("\n── Total Owed Per User ─────────────────");
         data.forEach((u, v) ->
-            System.out.printf("  %-15s  ₹%.2f%n", u.getName(), v));
+            System.out.printf("  %-15s  %.2f rupees%n", u.getName(), v));
         System.out.println("────────────────────────────────────────");
     }
 
@@ -328,7 +328,7 @@ public class CommandHandler {
     private void handleLargestDebtor() {
         analyticsService.largestDebtor().ifPresentOrElse(
             e -> System.out.printf(
-                "  Largest debtor: %s  owes ₹%.2f%n",
+                "Largest debtor: %s  owes %.2f rupees%n",
                 e.getKey().getName(), Math.abs(e.getValue())),
             () -> System.out.println("✓ No one owes anything!")
         );
@@ -337,7 +337,7 @@ public class CommandHandler {
     private void handleLargestCreditor() {
         analyticsService.largestCreditor().ifPresentOrElse(
             e -> System.out.printf(
-                "  Largest creditor: %s  is owed ₹%.2f%n",
+                "Largest creditor: %s  is owed %.2f rupees%n",
                 e.getKey().getName(), e.getValue()),
             () -> System.out.println("✓ No outstanding credits!")
         );

@@ -21,7 +21,7 @@ if (-not (Test-Path $javaHome)) {
 $env:JAVA_HOME = $javaHome
 $env:Path = "$javaHome\bin;$($env:Path)"
 
-$sourceFiles = Get-ChildItem -Path (Join-Path $PSScriptRoot 'src') -Recurse -Filter *.java | ForEach-Object { $_.FullName }
+$sourceFiles = Get-ChildItem -Path (Join-Path $PSScriptRoot 'src') -Recurse -Filter *.java | Where-Object { $_.FullName -notlike '*\test\*' } | ForEach-Object { $_.FullName }
 if (-not $sourceFiles) {
     throw 'No Java source files were found under src/.'
 }
@@ -29,15 +29,15 @@ if (-not $sourceFiles) {
 $classesDir = Join-Path $PSScriptRoot 'target\classes'
 New-Item -ItemType Directory -Force -Path $classesDir | Out-Null
 
-& "$javaHome\bin\javac.exe" --enable-preview -encoding UTF-8 --source 17 --target 17 -d $classesDir @sourceFiles
+& "$javaHome\bin\javac.exe" -encoding UTF-8 --release 17 -d $classesDir @sourceFiles
 
 function Invoke-ExpenseApp {
     param([string[]]$InputCommands)
 
     if ($InputCommands -and $InputCommands.Count -gt 0) {
-        ($InputCommands -join [Environment]::NewLine) | & "$javaHome\bin\java.exe" --enable-preview -cp $classesDir Main
+        ($InputCommands -join [Environment]::NewLine) | & "$javaHome\bin\java.exe" -cp $classesDir Main
     } else {
-        & "$javaHome\bin\java.exe" --enable-preview -cp $classesDir Main
+        & "$javaHome\bin\java.exe" -cp $classesDir Main
     }
 }
 

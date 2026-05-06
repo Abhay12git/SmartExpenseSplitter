@@ -12,12 +12,12 @@
     <packaging>jar</packaging>
     <name>Smart Expense Splitter</name>
     <description>CLI-based expense splitting system with debt optimization and spending analytics.</description>
-    <url>https://github.com/&lt;your-username&gt;/SmartExpenseSplitter</url>
+    <url>https://github.com/user/SmartExpenseSplitter</url>
 
     <scm>
-        <connection>scm:git:https://github.com/&lt;your-username&gt;/SmartExpenseSplitter.git</connection>
-        <developerConnection>scm:git:https://github.com/&lt;your-username&gt;/SmartExpenseSplitter.git</developerConnection>
-        <url>https://github.com/&lt;your-username&gt;/SmartExpenseSplitter</url>
+        <connection>scm:git:https://github.com/user/SmartExpenseSplitter.git</connection>
+        <developerConnection>scm:git:https://github.com/user/SmartExpenseSplitter.git</developerConnection>
+        <url>https://github.com/user/SmartExpenseSplitter</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -47,9 +47,6 @@
                 <version>3.11.0</version>
                 <configuration>
                     <release>17</release>
-                    <excludes>
-                        <exclude>test/**</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
 

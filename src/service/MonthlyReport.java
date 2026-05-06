@@ -44,19 +44,19 @@ public class MonthlyReport {
             "│  Total Expenses : %-5d                         │%n",
             totalExpenses));
         sb.append(String.format(
-            "│  Total Spending : ₹%-10.2f                  │%n",
+            "│  Total Spending : %.2f rupees                  │%n",
             totalSpending));
         sb.append("│                                                  │\n");
         sb.append("│  Amount Paid Out:                                │\n");
         paidMap.forEach((u, v) ->
             sb.append(String.format(
-                "│    %-15s → ₹%-10.2f               │%n",
+                "│    %-15s - %.2f rupees               │%n",
                 u.getName(), v)));
         sb.append("│                                                  │\n");
         sb.append("│  Share of Expenses:                              │\n");
         shareMap.forEach((u, v) ->
             sb.append(String.format(
-                "│    %-15s → ₹%-10.2f               │%n",
+                "│    %-15s - %.2f rupees               │%n",
                 u.getName(), v)));
         sb.append("└──────────────────────────────────────────────────┘");
         return sb.toString();
