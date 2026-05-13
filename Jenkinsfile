@@ -123,15 +123,21 @@ exit'''
         always {
             junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: true
             archiveArtifacts artifacts: 'target/*.jar,target/app-output.log', fingerprint: true, onlyIfSuccessful: true
-            mail to: "${EMAIL_RECIPIENTS}",
-                 subject: "[Jenkins] ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                 body: """Build Result: ${currentBuild.currentResult}
+            script {
+                try {
+                    mail to: "${EMAIL_RECIPIENTS}",
+                         subject: "[Jenkins] ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                         body: """Build Result: ${currentBuild.currentResult}
 Job: ${env.JOB_NAME}
 Build Number: #${env.BUILD_NUMBER}
 Build URL: ${env.BUILD_URL}
 Git Branch: ${REPO_BRANCH}
 Repository: ${REPO_URL}
 """
+                } catch (Exception ignored) {
+                    echo 'Mail notification skipped because SMTP was unavailable.'
+                }
+            }
         }
         failure {
             echo 'Build failed. Check Maven logs and surefire reports.'

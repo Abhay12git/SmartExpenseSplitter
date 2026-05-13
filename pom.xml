@@ -47,6 +47,9 @@
                 <version>3.11.0</version>
                 <configuration>
                     <release>17</release>
+                    <excludes>
+                        <exclude>test/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
 
@@ -55,7 +58,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>Main</mainClass>
+                    <mainClass>App</mainClass>
                 </configuration>
             </plugin>
 
@@ -72,7 +75,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

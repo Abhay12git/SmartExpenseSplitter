@@ -35,9 +35,9 @@ function Invoke-ExpenseApp {
     param([string[]]$InputCommands)
 
     if ($InputCommands -and $InputCommands.Count -gt 0) {
-        ($InputCommands -join [Environment]::NewLine) | & "$javaHome\bin\java.exe" -cp $classesDir Main
+        ($InputCommands -join [Environment]::NewLine) | & "$javaHome\bin\java.exe" -cp $classesDir App
     } else {
-        & "$javaHome\bin\java.exe" -cp $classesDir Main
+        & "$javaHome\bin\java.exe" -cp $classesDir App
     }
 }
 

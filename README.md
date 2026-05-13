@@ -26,7 +26,7 @@ Run with Maven
 ```powershell
 mvn clean test
 mvn clean package
-mvn exec:java -Dexec.mainClass="Main"
+mvn exec:java -Dexec.mainClass="App"
 java -jar target/expense-splitter.jar
 ```
 
@@ -282,7 +282,7 @@ Branch note — pushing to `main`
 If your remote default branch was `master` and you want to use `main`: rename locally (`git branch -m master main`) or create `main` from current HEAD and push with `git push -u origin main`. Update the repository default branch on GitHub (Settings → Branches) or use the `gh` CLI.
 
 Where to look next
-- The launcher is `run.ps1` in the project root — it compiles the flat `src/` layout and runs `Main`.
+- The launcher is `run.ps1` in the project root — it compiles the flat `src/` layout and runs `App`.
 - Sample data lives in `data/` and demo modes restore the original sample files after execution.
 
 If you want I can update the repository to stop tracking `.vscode` and `.github` now (I will prepare and run the git commands only after you confirm).

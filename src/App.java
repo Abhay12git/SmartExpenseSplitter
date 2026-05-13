@@ -4,7 +4,7 @@ import persistence.FileStorage;
 import repository.*;
 import service.*;
 
-public class Main {
+public class App {
     public static void main(String[] args) {
 
         // Repositories
