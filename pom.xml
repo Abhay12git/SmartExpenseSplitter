@@ -49,6 +49,8 @@
                     <release>17</release>
                     <excludes>
                         <exclude>test/**</exclude>
+                        <exclude>**/test/**</exclude>
+                        <exclude>**/test/**/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
